@@ -35,6 +35,14 @@ npm ci
 npm run build
 ```
 
+The production build intentionally uses Next.js's Webpack builder. Next.js 16
+uses Turbopack by default, but Turbopack does not resolve dependencies through a
+symlink that points outside its configured filesystem root. CloudLinux/cPanel
+stores `node_modules` in its managed Node virtual environment and links it into
+the application directory, so Webpack is the compatible production builder for
+this hosting layout. Local development can continue to use the default
+Turbopack-powered `npm run dev` command.
+
 Use `npm ci` for later deployments as well. It installs the exact dependency
 tree recorded in `package-lock.json` and replaces an existing `node_modules`
 directory instead of trying to merge and deduplicate its contents.
