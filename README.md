@@ -31,7 +31,7 @@ left by an earlier failed attempt:
 pwd
 rm -rf ./node_modules ./.next
 npm cache verify
-npm ci
+npm install --omit=dev
 npm run build
 ```
 
@@ -43,9 +43,20 @@ the application directory, so Webpack is the compatible production builder for
 this hosting layout. Local development can continue to use the default
 Turbopack-powered `npm run dev` command.
 
-Use `npm ci` for later deployments as well. It installs the exact dependency
-tree recorded in `package-lock.json` and replaces an existing `node_modules`
-directory instead of trying to merge and deduplicate its contents.
+Use `npm install --omit=dev` for later cPanel deployments as well. The site uses
+its own CSS rather than Tailwind, so the Tailwind/PostCSS native build chain is
+not installed. TypeScript and its type declarations remain available as normal
+dependencies because cPanel compiles the application in the same production
+environment that serves it.
+
+If cPanel has already installed the previous dependency set, update it and
+rebuild with:
+
+```bash
+npm install --omit=dev
+rm -rf .next
+npm run build
+```
 
 Configure the cPanel application to run:
 
