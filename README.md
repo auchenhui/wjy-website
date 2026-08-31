@@ -40,8 +40,10 @@ uses Turbopack by default, but Turbopack does not resolve dependencies through a
 symlink that points outside its configured filesystem root. CloudLinux/cPanel
 stores `node_modules` in its managed Node virtual environment and links it into
 the application directory, so Webpack is the compatible production builder for
-this hosting layout. Local development can continue to use the default
-Turbopack-powered `npm run dev` command.
+this hosting layout. The Next.js build is also restricted to one worker thread
+because shared cPanel accounts commonly enforce low process limits. Local
+development can continue to use the default Turbopack-powered `npm run dev`
+command.
 
 Use `npm install --omit=dev` for later cPanel deployments as well. The site uses
 its own CSS rather than Tailwind, so the Tailwind/PostCSS native build chain is
