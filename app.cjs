@@ -2,11 +2,11 @@ const { createServer } = require("node:http");
 
 // cPanel/Passenger launches this file directly instead of running `next start`.
 // Default to production because this entry point is only used after `next build`.
-process.env.NODE_ENV ||= "production";
+process.env.NODE_ENV ||= "Production";
 
 const next = require("next");
 
-const dev = process.env.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV !== "Production";
 const hostname = process.env.HOST || "0.0.0.0";
 const port = Number.parseInt(process.env.PORT || "3000", 10);
 
