@@ -60,12 +60,6 @@ rm -rf .next
 npm run build
 ```
 
-Configure the cPanel application to run:
-
-```bash
-npm run start
-```
-
 In cPanel's **Setup Node.js App** screen, set **Application startup file** to:
 
 ```text
@@ -74,9 +68,12 @@ app.cjs
 
 The startup file is CommonJS because CloudLinux's Passenger integration cannot
 load an ECMAScript-module entry point. It starts the production Next.js request
-handler and listens on the `PORT` supplied by cPanel. After changing the build
-or startup file, use cPanel's **Restart** action. If the interface requires a
-manual Passenger restart marker, run:
+handler and listens on the `PORT` supplied by cPanel. Do not use cPanel's
+**Run JS Script** action to keep `npm run start` running: that action is for
+finite commands and may terminate a long-running web server. Instead, set the
+application URL and startup file in **Setup Node.js App**, then use its
+**Restart** action. If the interface requires a manual Passenger restart marker,
+run:
 
 ```bash
 mkdir -p tmp
